@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/madams1972/notetaker-app/issues"
   },
-  "homepage": "https://github.com/madams1972/notetaker-app#readme"
+  "homepage": "https://github.com/madams1972/notetaker-app#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }

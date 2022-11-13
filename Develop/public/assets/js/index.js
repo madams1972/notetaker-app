@@ -1,10 +1,10 @@
-let noteTitle;
-let noteText;
-let saveNoteBtn;
-let newNoteBtn;
-let noteList;
+const $noteTitle = $(".note-title");
+const $noteText = $(".note-textarea");
+const $saveNoteBtn = $(".save-note");
+const $newNoteBtn = $(".new-note");
+const $noteList = $(".list-container .list-group");
 
-if (window.location.pathname === '/notes') {
+if (window.location.pathname === './notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
   saveNoteBtn = document.querySelector('.save-note');
@@ -24,6 +24,7 @@ const hide = (elem) => {
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
+// A function for getting all notes from the db
 
 const getNotes = () =>
   fetch('/api/notes', {
@@ -32,6 +33,7 @@ const getNotes = () =>
       'Content-Type': 'application/json',
     },
   });
+// A function for saving a note to the db
 
 const saveNote = (note) =>
   fetch('/api/notes', {
@@ -41,6 +43,7 @@ const saveNote = (note) =>
     },
     body: JSON.stringify(note),
   });
+// A function for deleting a note from the db
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
@@ -49,6 +52,7 @@ const deleteNote = (id) =>
       'Content-Type': 'application/json',
     },
   });
+// If there is an activeNote, display it, otherwise render empty inputs
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
@@ -65,6 +69,7 @@ const renderActiveNote = () => {
     noteText.value = '';
   }
 };
+// Get the note data from the inputs, save it to the db and update the view
 
 const handleNoteSave = () => {
   const newNote = {
@@ -102,12 +107,13 @@ const handleNoteView = (e) => {
   renderActiveNote();
 };
 
-// Sets the activeNote to and empty object and allows the user to enter a new note
+// Sets the activeNote to an empty object and allows the user to enter a new note
 const handleNewNoteView = (e) => {
   activeNote = {};
   renderActiveNote();
 };
-
+// If a note's title or text are empty, hide the save button
+// Or else show it
 const handleRenderSaveBtn = () => {
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);
@@ -119,7 +125,7 @@ const handleRenderSaveBtn = () => {
 // Render the list of note titles
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
-  if (window.location.pathname === '/notes') {
+  if (window.location.pathname === 'notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
 
@@ -179,5 +185,6 @@ if (window.location.pathname === '/notes') {
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
   noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
+// Gets and renders the initial list of notes
 
 getAndRenderNotes();
