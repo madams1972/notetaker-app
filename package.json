@@ -1,0 +1,26 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "note taker app",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madams1972/notetaker-app.git"
+  },
+  "keywords": [
+    "note",
+    "taker",
+    "app",
+    "notes",
+    "application"
+  ],
+  "author": "Malissa Adams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madams1972/notetaker-app/issues"
+  },
+  "homepage": "https://github.com/madams1972/notetaker-app#readme"
+}
