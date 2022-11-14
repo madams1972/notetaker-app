@@ -9,11 +9,11 @@ app.use(express.static('public'));
 app.get('/', (req, res) => res.send('Navigate to /send or /routes'));
 
 app.get('/send', (req, res) =>
-  res.sendFile(path.join(__dirname, 'public/sendFile.html'))
+  res.sendFile(path.join(__dirname, './Develop/public/sendFile.html'))
 );
 
 app.get('/routes', (req, res) =>
-  res.sendFile(path.join(__dirname, 'public/routes.html'))
+  res.sendFile(path.join(__dirname, './Develop/public/routes.html'))
 );
 
 app.listen(PORT, () =>
