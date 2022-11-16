@@ -26,7 +26,12 @@ The following images show the web application's appearance and functionality:
 
 
 
-![Screen Shot 2022-11-16 at 2 13 03 PM](https://user-images.githubusercontent.com/73671454/202284932-66f62541-e5ee-4e6e-8737-dcb7bab11b4b.png)
-![Screen Shot 2022-11-16 at 2 14 39 PM](https://user-images.githubusercontent.com/73671454/202285004-f5ed7f48-9bdd-43e8-a27d-ca22301ed32d.png)
+![Screen Shot 2022-11-16 at 2 13 03 PM](
+https://user-images.githubusercontent.com/73671454/202284932-66f62541-e5ee-4e6e-8737-dcb7bab11b4b.png
+
+
+![Screen Shot 2022-11-16 at 2 14 39 PM](
+https://user-images.githubusercontent.com/73671454/202285004-f5ed7f48-9bdd-43e8-a27d-ca22301ed32d.png
+
 
 
