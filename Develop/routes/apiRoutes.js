@@ -1,9 +1,9 @@
-//This should link all the packages and dependencies this app will use
+//link necessary packages and dependencies
 const path = require("path");
 const fs = require("fs");
 const uui = require("../helpers/uuid");
 
-//This function allows us to get notes stored in db.json
+//get stored JSON information from db.json
 const readData = () => {
   const noteData = JSON.parse(
     fs.readFileSync(path.join(__dirname, "../db/db.json"))
@@ -11,7 +11,7 @@ const readData = () => {
   return noteData;
 };
 
-//This adds new notes to db.json
+//store new data to db.json
 const writeData = (noteData) => {
   fs.writeFileSync(
     path.join(__dirname, "../db/db.json"),
@@ -22,7 +22,7 @@ const writeData = (noteData) => {
   );
 };
 
-//api functions used by the apps within the site to access and create notes
+//api functions to be used by other apps within site to access/create persistent data
 module.exports = function (app) {
   app.get("/api/notes", (req, res) => {
     let noteData = readData();
@@ -41,7 +41,7 @@ module.exports = function (app) {
     return res.json(noteData);
   });
 
-  //This is the api for deleting notes
+  //api for deleating existing notes
   app.delete("/api/notes/:id", (req, res) => {
     let noteData = readData();
     const noteId = req.params.id;
