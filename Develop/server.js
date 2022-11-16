@@ -5,21 +5,23 @@ var html = require('./routes/htmlRoutes')
 
 var PORT = process.env.PORT || 3001;
 
-app.use(express.urlencoded({ extended : true }));
 
 app.use(express.json());
 
-app.use(express.static('./public'));
-
-app.use(('./public'));
-
-app.use(('/api', api ));
+app.use(express.urlencoded({ extended : true }));
 
 
+app.use(express.static('public'));
 
-// require('./routes/apiRoutes')(app);
+// app.use(('./public'));
 
-// require('./routes/htmlRoutes')(app);
+app.use('/api', api );
+
+app.use('/', html );
+
+//require('./routes/apiRoutes')(app);
+
+//require('./routes/htmlRoutes')(app);
 
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
