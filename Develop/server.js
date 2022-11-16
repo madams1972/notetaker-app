@@ -1,28 +1,33 @@
-const express = require('express');
-var app = express();
-var api = require('./routes/apiRoutes')
-var html = require('./routes/htmlRoutes')
+//link necessary packages and dependencies
+const express = require("express");
+const app = express();
 
-var PORT = process.env.PORT || 3001;
+//sets port by first looking for system port then using 3001 if none found
+const PORT = process.env.PORT || 3001;
 
+//console logs server side req type, path and time
+const middleware = (req, res, next) => {
+  console.log(`${req.method} ${req.path} at ${Date.now()}`);
+  next();
+};
 
+// Sets up express to use middleware function
+app.use(middleware);
+
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.urlencoded({ extended : true }));
+//setup public folder for images, js, css
+app.use(express.static("public"));
 
+//API route
+require("./routes/apiRoutes")(app);
 
-app.use(express.static('public'));
+// HTML route
+require("./routes/htmlRoutes")(app);
 
-// app.use(('./public'));
-
-app.use('/api', api );
-
-app.use('/', html );
-
-//require('./routes/apiRoutes')(app);
-
-//require('./routes/htmlRoutes')(app);
-
+//Sets port to be used by deployed app
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
 );

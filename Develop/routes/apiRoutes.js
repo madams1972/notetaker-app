@@ -1,42 +1,53 @@
-const db = require('../db/db.json');
-const { v4: uuidv4 } = require('uuid');
-const fs = require('fs');
-const { json } = require('express');
+//link necessary packages and dependencies
+const path = require("path");
+const fs = require("fs");
+const uui = require("../helpers/uuid");
 
+//get stored JSON information from db.json
+const readData = () => {
+  const noteData = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "../db/db.json"))
+  );
+  return noteData;
+};
+
+//store new data to db.json
+const writeData = (noteData) => {
+  fs.writeFileSync(
+    path.join(__dirname, "../db/db.json"),
+    JSON.stringify(noteData),
+    (err) => {
+      if (err) return { err };
+    }
+  );
+};
+
+//api functions to be used by other apps within site to access/create persistent data
 module.exports = function (app) {
-    app.get('/notes', function (req, res) {
-        fs.readFile(`./db/db.json`, (err, data) => {
-            if (err) throw err;
-            res.writeHead(200, { 'Content-Type': 'text/json' });
-            res.write(data);
-            res.end();
-        });
-    });
+  app.get("/api/notes", (req, res) => {
+    let noteData = readData();
+    res.json(noteData);
+  });
 
-    app.post('/notes', function (req, res) {
-         const id = uuidv4();
-        return fs.readFile(`./db/db.json`, (err, data) => {
-            const json = JSON.parse(data);
-            req.body.id = id;
-            console.log(req.body);
-            json.push(req.body);
-            fs.writeFile(`./db/db.json`, JSON.stringify(json, null, 1), (err) => {
-                if (err) throw err;
-            });
-            res.send("A new note has been created");
-        });
-    });
+  //api for adding new notes
+  app.post("/api/notes", (req, res) => {
+    let noteData = readData();
+    let newNote = req.body;
+    let newNoteID = uui();
 
+    newNote.id = newNoteID;
+    noteData.push(newNote);
+    writeData(noteData);
+    return res.json(noteData);
+  });
 
-    app.delete('/notes/:id', (req, res) => {
-        
-        fs.readFile(`./db/db.json`, (err, data) => {
-            if (err) throw err;
-            const update = data.filter(note => note.id !== req.params.id);
-            console.log(update);
-             
+  //api for deleating existing notes
+  app.delete("/api/notes/:id", (req, res) => {
+    let noteData = readData();
+    const noteId = req.params.id;
+    const newNoteData = noteData.filter((note) => note.id != noteId);
 
-        });
-        
-    });
+    writeData(newNoteData);
+    res.send(newNoteData);
+  });
 };
