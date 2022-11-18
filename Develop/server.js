@@ -1,33 +1,33 @@
-//link packages and dependencies
+//link Express packages and dependencies
 const express = require("express");
 const app = express();
 
-//sets port by first looking for system port then using 3001 if none found
+//Looks for system port or use 3001 if none found
 const PORT = process.env.PORT || 3001;
 
-//console logs server side req type, path and time
+//console logs server side request type, path and date
 const middleware = (req, res, next) => {
   console.log(`${req.method} ${req.path} at ${Date.now()}`);
   next();
 };
 
-// Sets up express to use middleware function
+// Middleware function
 app.use(middleware);
 
-// Sets up the Express app to handle data parsing
+// Allows the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//setup public folder for images, js, css
+//Sets up the public folder 
 app.use(express.static("public"));
 
-//API route
+//The code below is the API route
 require("./routes/apiRoutes")(app);
 
-// HTML route
+// The code belwo is the HTML route
 require("./routes/htmlRoutes")(app);
 
-//Sets port to be used by deployed app
+//The code below is the port the app will start on
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
 );

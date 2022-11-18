@@ -5,8 +5,8 @@ This is an application called Note Taker that can be used to write and save note
 The application’s front end was created by my instructors in the UofM FullStack Coding bootcamp. I built the back end, connected the two, and then deployed the entire application to Heroku.
 
 
-WHEN You open the Note Taker
-THEN you are presented with a landing page with a link to a notes page
+WHEN You open the Note Taker app
+You are presented with a landing page with a link to the notes page
 WHEN you click on the link to the notes page
 THEN you are presented with a page with existing notes listed in the left-hand column, plus empty fields to enter a new note title and the note’s text in the right-hand column
 WHEN you enter a new note title and the note’s text
